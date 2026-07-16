@@ -1,13 +1,22 @@
 [project]
 name = "brain-cli"
 version = "0.1.0"
-description = "A tiny command line tool for organizing thoughts in Markdown."
+description = "A tiny command-line tool for organizing thoughts in Markdown."
 readme = "README.md"
 requires-python = ">=3.10"
+license = "MIT"
+authors = [
+    { name = "Meiglyph" }
+]
 dependencies = [
     "typer",
     "rich"
 ]
+
+[project.urls]
+Homepage = "https://github.com/meiglyph/brain-cli"
+Repository = "https://github.com/meiglyph/brain-cli"
+Issues = "https://github.com/meiglyph/brain-cli/issues"
 
 [project.scripts]
 brain = "brain.cli:app"
