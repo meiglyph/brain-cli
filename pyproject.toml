@@ -13,6 +13,11 @@ dependencies = [
     "rich"
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest"
+]
+
 [project.urls]
 Homepage = "https://github.com/meiglyph/brain-cli"
 Repository = "https://github.com/meiglyph/brain-cli"
