@@ -7,16 +7,29 @@ A simple command-line note-taking tool built with Python, Typer, and Rich.
 - Add notes from the command line
 - Save notes as Markdown files by date
 - List saved note files
-- Show the contents of a selected note file
+- Show today's note or a selected note file
+- Search all notes for matching text
 
 ## Installation
 
-Clone the repository and install it in editable mode:
+Clone the repository:
 
 ```bash
 git clone git@github.com:meiglyph/brain-cli.git
 cd brain-cli
-pip install -e .
+```
+
+Create and activate a virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Install Brain CLI in editable mode:
+
+```bash
+python -m pip install -e .
 ```
 
 ## Usage
@@ -33,10 +46,22 @@ List saved note files:
 brain list
 ```
 
-Show a note file:
+Show today's note:
 
 ```bash
-brain show 2026-07-08
+brain show
+```
+
+Show a note from a specific date:
+
+```bash
+brain show 2026-07-18
+```
+
+Search all notes:
+
+```bash
+brain search SSH
 ```
 
 View all available commands:
@@ -47,6 +72,7 @@ brain --help
 
 ## Project Structure
 
+```text
 brain-cli/
 ├── examples/
 │   └── example-note.md
@@ -59,6 +85,9 @@ brain-cli/
 ├── LICENSE
 ├── pyproject.toml
 └── README.md
+```
+
+The `notes/` directory is ignored by Git so personal notes are not published.
 
 ## Built With
 
