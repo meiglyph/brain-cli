@@ -12,13 +12,13 @@ NOTES_DIR = Path("notes")
 
 
 @app.callback()
-def main():
+def main() -> None:
     """Brain CLI - a tiny tool for organizing thoughts in Markdown."""
     pass
 
 
-@app.command()
-def new(text: str):
+@app.command("add")
+def add_note(text: str) -> None:
     """Add a note to today's Markdown file."""
     NOTES_DIR.mkdir(exist_ok=True)
 
@@ -32,7 +32,7 @@ def new(text: str):
 
 
 @app.command("list")
-def list_notes():
+def list_notes() -> None:
     """List all note files."""
     if not NOTES_DIR.exists():
         console.print("No notes found.")
@@ -54,10 +54,12 @@ def list_notes():
 
 
 @app.command()
-def show(filename: str = typer.Argument(None)):
+def show(filename: str | None = typer.Argument(None)) -> None:
     """Show a note file. If no filename is given, show today's note."""
     if filename is None:
         filename = f"{date.today().isoformat()}.md"
+    elif not filename.endswith(".md"):
+        filename = f"{filename}.md"
 
     note_path = NOTES_DIR / filename
 
@@ -66,3 +68,32 @@ def show(filename: str = typer.Argument(None)):
         raise typer.Exit(code=1)
 
     console.print(note_path.read_text(encoding="utf-8"))
+
+
+@app.command()
+def search(query: str) -> None:
+    """Search all notes for matching text."""
+    if not NOTES_DIR.exists():
+        console.print("No notes found.")
+        raise typer.Exit(code=1)
+
+    files = sorted(NOTES_DIR.glob("*.md"))
+    normalized_query = query.casefold()
+    matches_found = False
+
+    for file in files:
+        matching_lines = []
+
+        for line in file.read_text(encoding="utf-8").splitlines():
+            if normalized_query in line.casefold():
+                matching_lines.append(line)
+
+        if matching_lines:
+            matches_found = True
+            console.print(f"\n[bold]{file.name}[/bold]")
+
+            for line in matching_lines:
+                console.print(f"  {line}")
+
+    if not matches_found:
+        console.print(f'No notes matched "{query}".')
