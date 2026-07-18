@@ -47,8 +47,9 @@ brain --help
 
 ## Project Structure
 
-```text
 brain-cli/
+├── examples/
+│   └── example-note.md
 ├── notes/
 ├── src/
 │   └── brain/
@@ -58,7 +59,6 @@ brain-cli/
 ├── LICENSE
 ├── pyproject.toml
 └── README.md
-```
 
 ## Built With
 
