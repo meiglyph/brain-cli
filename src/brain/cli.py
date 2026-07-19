@@ -8,8 +8,7 @@ from rich.table import Table
 app = typer.Typer(no_args_is_help=True)
 console = Console()
 
-NOTES_DIR = Path("notes")
-
+NOTES_DIR = Path.home() / ".brain-cli" / "notes"
 
 @app.callback()
 def main() -> None:
@@ -20,7 +19,7 @@ def main() -> None:
 @app.command("add")
 def add_note(text: str) -> None:
     """Add a note to today's Markdown file."""
-    NOTES_DIR.mkdir(exist_ok=True)
+    NOTES_DIR.mkdir(parents=True, exist_ok=True)
 
     today = date.today().isoformat()
     note_path = NOTES_DIR / f"{today}.md"
